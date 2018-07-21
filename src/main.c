@@ -88,22 +88,33 @@ static void switchto(enum gpu_id id) {
   }
 }
 
-
-
 int main(int argc, char **argv) {
   if (iopl(3) < 0) {
     perror("No IO permissions");
     return 1;
   }
 
-  // switchto(IGD);
-  printf("Discrete state: 0x%X\n", get_discrete_state());
-  set_discrete_state(STATE_OFF);
-  printf("Discrete state: 0x%X\n", get_discrete_state());
-  // set_discrete_state(STATE_ON);
-  printf("Discrete state: 0x%X\n", get_discrete_state());
-  // set_discrete_state(STATE_OFF);
-  printf("Discrete state: 0x%X\n", get_discrete_state());
+  if (argc < 2) {
+    perror("Nothing to do.");
+    return 0;
+  }
 
+  switch (*argv[1]) {
+  case 'n':
+    set_discrete_state(STATE_ON);
+    break;
+  case 'f':
+    set_discrete_state(STATE_OFF);
+    break;
+  case 's':
+    printf("Discrete state: 0x%X\n", get_discrete_state());
+    break;
+  case 'i':
+    switchto(IGD);
+    break;
+  case 'd':
+    switchto(DIS);
+    break;
+  }
   return 0;
 }
