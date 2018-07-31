@@ -30,3 +30,6 @@ function disable_nvidia {
 ```
 
 after boot you can use nv-xrun to run enable nvidia gpu and run new X session on it.
+
+here is service example to disable nvidia GPU after suspend: 
+https://github.com/myrgy/my-cfg/blob/master/etc/systemd/system/nvidia-disable.service
